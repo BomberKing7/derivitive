@@ -12,6 +12,19 @@ string mulByN1(string f){
     }
     return f;
 }
+string powByN1(string f){
+    if(f[0]!='*'&&f[0]!='/')f="*"+f;
+    int b=0;
+    for(int i=0;i<f.length();i++){
+        if(f[i]=='(')b++;
+        if(f[i]==')')b--;
+
+        if(f[i]=='*'&&b==0)f[i]='/';
+        else
+        if(f[i]=='/'&&b==0)f[i]='*';
+    }
+    return f;
+}
 string fix(string f){
     if(f==""||f=="x")return f;
     if(isConst(f))return to_string(calc(f));
@@ -79,8 +92,11 @@ string fix(string f){
             if(isConst(get))CON*=calc(get);
             else
             {
+            if(isMull(get)&&f[id]=='/')
+                get=powByN1(get),f[id]='*';
             if(res!="")res+=f[id];
             if(isAdd(get))get="("+get+")";
+
             res+=get;
             }
         id=i;
@@ -91,6 +107,6 @@ string fix(string f){
     if(CON!=1&&CON!=-1)
     res=to_string(CON)+"*"+res;
     if(CON==-1)res="-"+res;
-
+    if(res[0]=='/')res="1"+res;
     return res;
 }
