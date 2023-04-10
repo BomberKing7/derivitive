@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1681137832 source:c:\users\10home\documents\cpp\calculator\main.cpp
+	<iostream>
+	<vector>
+	<utility>
+	"calc.h"
+	"derivitive.h"
+
+1681132384 c:\users\10home\documents\cpp\calculator\calc.h
+	<iostream>
+	<vector>
+	<stack>
+	<math.h>
+	<algorithm>
+	<fstream>
+	<map>
+	<float.h>
+
+1681137815 c:\users\10home\documents\cpp\calculator\derivitive.h
+	"fix.h"
+
+1681136136 c:\users\10home\documents\cpp\calculator\tests.h
+
+1681137623 c:\users\10home\documents\cpp\calculator\fix.h
+	"tests.h"
+
