@@ -1,7 +1,8 @@
 #include "fix.h"
-string der(string f);
+string der(string f,bool debug=0);
 string derNamedFunction(string f) //here we put famous functions
 {
+
     int i=0;
     while(f[i]!='(')
         i++;
@@ -33,11 +34,15 @@ string derNamedFunction(string f) //here we put famous functions
         return "("+der(par[0])+")/cos("+par[0]+")^2";
     if(name=="log"&&i>=2)
         return "("+der(par[0])+")/(("+par[0]+")*ln("+par[1]+"))";
+    if(name=="ln")
+        return "("+der(par[0])+")/("+par[0]+")";
     cout<<"no_such_function_"+name;
     return "0";
 }
-string der(string f)
+string der(string f,bool debug)
 {
+    if(debug)
+    cout<<"der >>"+f<<endl;
     if (f == "")
         return "";
     if (f == "x")
@@ -46,16 +51,22 @@ string der(string f)
         return "0";
     if (isBraced(f))
     {
+        if(debug)
+        cout<<"braced"<<endl;
         while (isBraced(f))
             f = f.substr(1, f.length() - 2);
         return der(f);
     }
     if(isNamedFunction(f))
     {
+        if(debug)
+        cout<<"named"<<endl;
         return derNamedFunction(f);
     }
     if(isPower(f))
     {
+        if(debug)
+        cout<<"power"<<endl;
         for(int i=0; i<f.length(); i++)
             if(f[i]=='^')
             {
@@ -73,11 +84,13 @@ string der(string f)
     string res = "";
     if (isAdd(f))
     {
+        if(debug)
+        cout<<"add"<<endl;
         while (i + j - 1 < n)
         {
-            if (f[i] == '(')
+            if (f[i+j-1] == '(')
                 b++;
-            if (f[i] == ')')
+            if (f[i+j-1] == ')')
                 b--;
             if ((f[i+j-1]=='-'||f[i+j-1] == '+')&&b==0)
             {
@@ -92,7 +105,8 @@ string der(string f)
         n = vp.size();
         for (auto x : vp)
         {
-            res += "("+der(f.substr(x.F, x.S))+")";
+            if(x.S!=0)
+                res += "("+der(f.substr(x.F, x.S))+")";
             if (g != vp.size() - 1)
                 res += f[x.F + x.S];
             g++;
@@ -100,11 +114,13 @@ string der(string f)
         return res;
     }
 
+    if(debug)
+    cout<<"mul"<<endl;
     while (i + j - 1 < n)
     {
-        if (f[i] == '(')
+        if (f[i+j-1] == '(')
             b++;
-        if (f[i] == ')')
+        if (f[i+j-1] == ')')
             b--;
         if ((f[i+j-1]=='*'||f[i+j-1]=='/')&&b==0)
         {
@@ -114,6 +130,7 @@ string der(string f)
         }
         j++;
     }
+
     vp.pb({i, j - 1});
     g = 0;
     for (auto x : vp)

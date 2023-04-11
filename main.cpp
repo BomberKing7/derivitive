@@ -14,8 +14,8 @@ int main()
     string f;
     while (1)
     {
-        cout<<"    ";
+        cout<<"  >>";
         cin >> f;
-        xout << fix(der(f)) << endl;
+        xout <<der(f,0)<<"\n\t"<< fix(f)<<"\n\t" <<fix(der(f))<< endl<<endl;
     }
 }
