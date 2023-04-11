@@ -8,7 +8,7 @@ using namespace std;
 #define xout cout << "    "
 #include "calc.h"
 #include "derivitive.h"
-
+// bug  -(-2*x*x/(x^2))+(-x/x^2)
 int main()
 {
     string f;
@@ -16,6 +16,7 @@ int main()
     {
         cout<<"  >>";
         cin >> f;
-        xout <<der(f,0)<<"\n\t"<< fix(f)<<"\n\t" <<fix(der(f))<< endl<<endl;
+        xout <<der(f)<<endl;;cout<<"\n\t"<< fix(f);
+        cout<<"\n\t" <<fix(der(f))<< endl<<endl;
     }
 }

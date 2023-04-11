@@ -236,7 +236,7 @@ num calculate2(string f) {//calculate with brackets
     return calculate1(f);
 }
 
-num calc(string f,float x=0){
+num calc(string f,float x=5){
     variable["x"]=x;
     return calculate2(f);
 }

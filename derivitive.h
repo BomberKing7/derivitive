@@ -41,8 +41,8 @@ string derNamedFunction(string f) //here we put famous functions
 }
 string der(string f,bool debug)
 {
-    if(debug)
-    cout<<"der >>"+f<<endl;
+
+    //cout<<"der >>"+f<<endl;
     if (f == "")
         return "";
     if (f == "x")
@@ -67,11 +67,14 @@ string der(string f,bool debug)
     {
         if(debug)
         cout<<"power"<<endl;
+        int b=0;
         for(int i=0; i<f.length(); i++)
-            if(f[i]=='^')
+            if(f[i]=='(')b++; else
+            if(f[i]==')')b--; else
+            if(f[i]=='^'&&b==0)
             {
                 if(isConst(f.substr(i+1,f.length()-i-1)))
-                    return "("+f.substr(i+1,f.length()-i-1)+")*"+f.substr(0,i)+"^("+f.substr(i+1,f.length()-i-1)+"-1)";
+                    return "("+f.substr(i+1,f.length()-i-1)+")*("+der(f.substr(0,i))+")*"+f.substr(0,i)+"^("+f.substr(i+1,f.length()-i-1)+"-1)";
                 return "(("+ der(f.substr(0,i))+")*"
                        +f.substr(i+1,f.length()-i-1)
                        +"/"+f.substr(0,i)
@@ -114,8 +117,7 @@ string der(string f,bool debug)
         return res;
     }
 
-    if(debug)
-    cout<<"mul"<<endl;
+
     while (i + j - 1 < n)
     {
         if (f[i+j-1] == '(')

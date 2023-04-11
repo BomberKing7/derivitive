@@ -34,7 +34,9 @@ string powByN1(string f){
     }
     return f;
 }
+
 string fix(string f){
+    //cout<<"fix>>"+f<<endl;
     if(f==""||f=="x")return f;
     if(isConst(f))return to_string_modified(calc(f));
     if(isBraced(f)){
@@ -50,15 +52,19 @@ string fix(string f){
         return f.substr(0,i)+"("+fix(f.substr(i,f.length()-i))+")";
     }
     if(isPower(f)){
+        int b=0;
         for(int i=0;i<f.length();i++)
-            if(f[i]=='^')
+            if(f[i]=='(')b++; else
+            if(f[i]==')')b--; else
+            if(f[i]=='^'&&b==0)
             {
                 string base=fix(f.substr(0,i));
                 string po=fix(f.substr(i+1,f.length()-i-1));
-                if(po=="0")return "1";
+                if(po=="0"||base=="1")return "1";
                 if(po=="1")return base;
+
                 if(isMull(base)||isAdd(base)||isPower(base))base="("+base+")";
-                if(isMull(po)||isAdd(po)||isPower(po))po="("+po+")";
+                if(isMull(po)||isAdd(po))po="("+po+")";
                 return base+"^"+po;
             }
     }
@@ -115,8 +121,8 @@ string fix(string f){
             }
             if(isMull(get)&&f[id]=='/')
                 get=powByN1(get),f[id]='*';
-            if(res!=""||f[id]=='/')res+=f[id];
-
+            if(f[id]=='/'){if(res=="")res="1";res+=f[id];}
+            else if(res!=""&&get[0]!='/'&&get[0]!='*')res+=f[id];
             if(isAdd(get))
                 res+="("+get+")";
             else
