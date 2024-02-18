@@ -1,3 +1,4 @@
+#include "all_includes.h"
 #include "fix.h"
 string der(string f,bool debug=0);
 string derNamedFunction(string f) //here we put famous functions

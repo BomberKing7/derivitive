@@ -1,3 +1,4 @@
+#include "all_includes.h"
 bool isLetter(char x)
 {
     return (x >= 'a' && x <= 'z') ||
@@ -54,6 +55,7 @@ bool isAdd(string f)//O(n)
 }
 bool isMull(string f){
     int b = 0, n = f.length();
+    if(isAdd(f))return 0;
     for (int i = 0; i < n; i++)
     {
         if (f[i] == '(')

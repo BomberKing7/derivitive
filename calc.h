@@ -1,18 +1,11 @@
-#include <iostream>
-using namespace std;
-#include <vector>
-#include <stack>
-#include <math.h>
-#include <algorithm>
-#include <fstream>
-#include <map>
-#include <float.h>
+#include "all_includes.h"
 #define num double   //you can change num later to any variable type
 num calculate1(string f);
 num calculate2(string f);
 
-bool belongTo(char c, string s) {//if the character belongs to the string
-    for (char x : s)if (x == c)return true;
+bool belongTo(char c,string s)
+{//if the character belongs to the string
+    for(char x : s)if(x==c)return true;
     return false;
 }
 
